@@ -24,8 +24,8 @@ int main(int argc, char *argv[]) {
     const double c = 0.1; //自適應參數
     
     //函數邊界
-    const double minVal = -32;
-    const double maxVal = 32;
+    const double minVal = -1.28;
+    const double maxVal = 1.28;
 
     cout << "Initializing parameters:\n";
     cout << "D: " << D << ", NP: " << NP << ", G: " << G << ", p: " << pb << ", c: " << c << "\n";
@@ -34,10 +34,18 @@ int main(int argc, char *argv[]) {
     //vector<double> best = differential_evolution(D, NP, G, pb, c, minVal, maxVal, targetFunction);
     
     //指定開頭和結尾函式
-    int st = 7  ,ed = 13;
+    int st = 1  ,ed = 13;
     min(int(funcs.size()),ed);
+    // 3. 每個函數的邊界最大值 F1 ~ F13
+    std::vector<double> bounds = {
+        100, 10, 100, 100, 30, 100, 1.28, 500, 5.12, 32, 600, 50, 50
+    };
+
     for (int i = st; i <= ed; ++i) {
-        std::cout << "==== F" << (i) << " (Gen=" << gens[i-1] << ") ====" << std::endl;
+        double bound = bounds[i-1];
+        double minVal = -bound;
+        double maxVal = bound;
+        std::cout << "==== F" << (i) << " (Gen=" << gens[i-1] << endl;
         std::vector<double> best = differential_evolution(D, NP, gens[i-1], pb, c, minVal, maxVal, funcs[i-1]);
         std::cout << "Best solution: ";
         for (double val : best) std::cout << val << " ";

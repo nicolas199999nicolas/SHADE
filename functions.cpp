@@ -93,6 +93,7 @@ double F6(const std::vector<double>& x) {
     }
     return sum;
 }
+//7怪怪的 
 double F7(const std::vector<double>& x) {
     double sum = 0.0;
     std::random_device rd;
@@ -100,16 +101,17 @@ double F7(const std::vector<double>& x) {
     std::uniform_real_distribution<> rand01(0.0, 1.0); // 隨機生成 [0, 1]
 
     for (int i = 0; i < x.size(); ++i) {
-        sum += pow(x[i], 4) * (i + 1) + rand01(gen);
+        sum += pow(x[i], 4) * (i + 1) ;
     }
-    return sum;
+    return sum+ rand01(gen);
 }
-double F8(const std::vector<double>& x) {
-    double sum = 0.0;
-    for (double val : x) {
-        sum += -val * sin(sqrt(fabs(val)));
-    }
-    return sum + x.size() * 418.98288727243369; // D * 418.98288727243369
+double F8(const std::vector<double>& position) {
+        double answer = 0.0;
+        for(double x : position){
+            answer += (-x * sin(sqrt(fabs(x))));
+        }
+        answer += (418.98288727243369 * position.size());
+        return answer;
 }
 double F9(const std::vector<double>& x) {
     double sum = 0.0;
