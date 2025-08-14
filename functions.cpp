@@ -56,6 +56,7 @@ double F2(const vector<double> &position){
     double answer = sum + product;
     return answer;
 }
+//和JADE接近
 double F3(const std::vector<double>& x) {
     double sum = 0.0;
     for(int i = 0; i < x.size(); ++i) {
@@ -68,6 +69,7 @@ double F3(const std::vector<double>& x) {
     }
     return sum;
 }
+//和JADE接近
 double F4(const vector<double> &position){
     double answer = fabs(position[0]);
     for(double x : position){
@@ -76,6 +78,7 @@ double F4(const vector<double> &position){
     }
     return answer;
 }
+//0
 double F5(const std::vector<double>& x) {
     double sum = 0.0;
     int D = x.size();
@@ -103,7 +106,7 @@ double F7(const std::vector<double>& x) {
     for (int i = 0; i < x.size(); ++i) {
         sum += pow(x[i], 4) * (i + 1) ;
     }
-    return sum+ rand01(gen);
+    return sum   + rand01(gen);
 }
 double F8(const std::vector<double>& position) {
         double answer = 0.0;
