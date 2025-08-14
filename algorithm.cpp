@@ -36,6 +36,7 @@ vector<double> differential_evolution(
     // Main loop
     for (int genIdx = 0; genIdx < G; ++genIdx) {
         vector<double> CR(NP), F(NP);
+        //成功的CR和F
         vector<double> S_CR, S_F, S_delta; // 新增 S_delta 用於 weighted mean
         vector<vector<double>> newP(NP);
         vector<double> newFitness(NP);
@@ -51,16 +52,16 @@ vector<double> differential_evolution(
             F[i] = std::min(1.0, std::max(0.0, randF(gen)));
 
             // p_i uniform [pb, 0.2]
-            double pmin = pb;
+            double pmin = 2.0 / NP;
             double pmax = 0.2;
             double p_i = pmin + (pmax - pmin) * rand01(gen);
 
             // p-best selection
             vector<int> sortedIdx(NP);
             iota(sortedIdx.begin(), sortedIdx.end(), 0);
-            sort(sortedIdx.begin(), sortedIdx.end(), [&](int a, int b){ return fitness[a] < fitness[b]; });
+            sort(sortedIdx.begin(), sortedIdx.end(), [&](int a, int b){ return fitness[a] < fitness[b]; });//排序
             int num_p = max(2, static_cast<int>(NP * p_i)); // 至少 2 個
-            int pBestIdx = sortedIdx[static_cast<int>(rand01(gen) * num_p)];
+            int pBestIdx = sortedIdx[static_cast<int>(rand01(gen) * num_p)];//隨機選一個
 
             // 隨機選取 r1 from P excluding i
             int r1;
@@ -68,12 +69,15 @@ vector<double> differential_evolution(
 
             // 選取 xr2 from P U A excluding i and r1
             vector<int> candidates;
+            //把族群 P 中除了自己（i）和 r1 以外的所有個體索引都加入 candidates
             for (int c = 0; c < NP; ++c) {
                 if (c != i && c != r1) candidates.push_back(c);
             }
+            //把 Archive（歷史存檔）裡的所有個體也加入 candidates
             for (int a = 0; a < Archive.size(); ++a) {
                 candidates.push_back(NP + a); // 偏移索引
             }
+            // 隨機選取 xr2 from candidates
             int xr2_idx = candidates[static_cast<int>(rand01(gen) * candidates.size())];
             vector<double> xr2(D);
             if (xr2_idx < NP) {

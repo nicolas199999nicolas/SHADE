@@ -24,8 +24,10 @@ int main(int argc, char *argv[]) {
     const double c = 0.1; //自適應參數
     
     //函數邊界
+    /*
     const double minVal = -1.28;
     const double maxVal = 1.28;
+    */
 
     cout << "Initializing parameters:\n";
     cout << "D: " << D << ", NP: " << NP << ", G: " << G << ", p: " << pb << ", c: " << c << "\n";
